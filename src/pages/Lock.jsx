@@ -7,8 +7,9 @@ import { FaChevronRight } from "react-icons/fa";
 export default function Lock({ showError, handleSubmit, login }) {
   const navigate = useNavigate();
   useEffect(() => {
-    if (login) navigate("/");
+    // if (login) navigate("/");
   }, []);
+
   return (
     <div className="unlock-page" style={{ backgroundmage: `url(${bg})` }}>
       {showError && <p className="error">Incorrect Password</p>}

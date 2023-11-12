@@ -12,7 +12,7 @@ export default function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate("/unlock");
+    // navigate("/unlock");
   }, []);
 
   function handleSubmit(e) {
@@ -30,7 +30,7 @@ export default function App() {
           setLogin(false);
         } else {
           setLogin(true);
-          navigate("/");
+          // navigate("/");
           setEPasses(res.data.ePasses);
           setGPasses(res.data.gPasses);
         }
@@ -40,22 +40,23 @@ export default function App() {
   useEffect((e) => {}, []);
   return (
     <div>
-      <Routes>
+      {login ? (
+        <Passes ePasses={ePasses} gPasses={gPasses} login={login} />
+      ) : (
+        <Lock handleSubmit={handleSubmit} showError={showError} login={login} />
+      )}
+      {/* <Routes>
         <Route
           path="/unlock"
           element={
-            <Lock
-              handleSubmit={handleSubmit}
-              showError={showError}
-              login={login}
-            />
+            
           }
         />
         <Route
           path="/"
-          element={<Passes ePasses={ePasses} gPasses={gPasses} login={login} />}
+          element={}
         />
-      </Routes>
+      </Routes> */}
     </div>
   );
 }
