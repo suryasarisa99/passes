@@ -12,9 +12,9 @@ export default function App() {
   const navigate = useNavigate();
 
   function handleSubmit(e) {
-    // let url = "https://pass-backend.vercel.app/passes"
     e.preventDefault();
-    let url = "http://192.168.0.169:3000/passes";
+    let url = "https://pass-backend.vercel.app/passes";
+    // let url = "http://192.168.0.169:3000/passes";
     axios
       .post(url, {
         pass: e.target.pass.value,
