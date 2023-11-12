@@ -125,21 +125,59 @@ body {
 
 // @lockpage
 
+#root {
+  overflow-y: hidden;
+}
 .unlock-page {
-  height: 100vh;
+  overflow-y: hidden;
+  height: calc(100vh - 100px);
   display: flex;
   align-items: center;
   justify-content: center;
+  background-size: cover;
   border: 0;
   outline: none;
   flex-direction: column;
+  object-fit: cover;
   gap: 12px;
 
+  .box {
+    // -webkit-backdrop-filter: blur(5px);
+    // backdrop-filter: blur(12px);
+    // border: 0.3px solid rgba(138, 161, 137, 0.796);
+    // width: 80%;
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+  }
+
+  form {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 0;
+  }
+  .outer-btn {
+    border: 0px;
+    padding: 8px 10px;
+    background-color: rgb(0, 145, 255);
+    border-radius: 12px;
+    // display: none;
+    .icon {
+      color: black;
+      font-size: 18px;
+    }
+  }
   input {
     background-color: rgb(44, 44, 44);
+    // background-color: transparent;
     color: white;
+    // background-color: black;
+    // backdrop-filter: blur(30px);
     padding: 8px 8px;
+    // width: 200px;
     border: 0px;
+    font-size: 20px;
     border-radius: 6px;
     &:focus {
       outline: none;
