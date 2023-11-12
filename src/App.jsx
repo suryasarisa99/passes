@@ -11,6 +11,10 @@ export default function App() {
   let [login, setLogin] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    navigate("/");
+  }, []);
+
   function handleSubmit(e) {
     e.preventDefault();
     let url = "https://pass-backend.vercel.app/passes";
