@@ -41,15 +41,33 @@ function Pass({ pass }) {
           {pass._id}
         </span>
       </div>
-      <div className="field">
-        <span className="txt password">Pass:</span>
-        <span
-          className="value password"
-          onClick={() => navigator.clipboard.writeText(pass.password)}
-        >
-          {pass.password}
-        </span>
-      </div>
+      {pass.temp && (
+        <div className="field">
+          <span className="txt password">Pass:</span>
+          <span
+            className="value password"
+            onClick={() => navigator.clipboard.writeText(pass.password)}
+          >
+            {pass.temp}
+          </span>
+          <span className={"n2fs " + pass?.twoStepAuth}>2fs</span>
+        </div>
+      )}
+
+      {pass.password && (
+        <div className="field">
+          <span className="txt password">Pass:</span>
+          <span
+            className="value password"
+            onClick={() => navigator.clipboard.writeText(pass.password)}
+          >
+            {pass.password}
+          </span>
+          {!pass.temp && (
+            <span className={"n2fs " + pass?.twoStepAuth}>2fs</span>
+          )}
+        </div>
+      )}
       {pass.oldPasswords.length > 0 && (
         <>
           <div
