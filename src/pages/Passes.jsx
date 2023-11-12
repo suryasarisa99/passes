@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 function Passes({ gPasses, ePasses, login }) {
   const navigate = useNavigate();
   useEffect(() => {
-    if (!login) navigate("/");
+    if (!login) navigate("/unlock");
   }, []);
   return (
     <>
