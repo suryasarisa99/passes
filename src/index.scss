@@ -122,3 +122,34 @@ body {
 .heading {
   color: white;
 }
+
+// @lockpage
+
+.unlock-page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  outline: none;
+  flex-direction: column;
+  gap: 12px;
+
+  input {
+    background-color: rgb(44, 44, 44);
+    color: white;
+    padding: 8px 8px;
+    border: 0px;
+    border-radius: 6px;
+    &:focus {
+      outline: none;
+    }
+  }
+  .error {
+    background-color: rgba(110, 1, 1, 0.713);
+    color: rgb(255, 0, 0);
+    padding: 4px 8px;
+    font-size: 16px;
+    border-radius: 6px;
+  }
+}

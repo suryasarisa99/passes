@@ -1,107 +1,57 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
-function App() {
+import { Routes, Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Lock from "./pages/Lock";
+import Passes from "./pages/Passes";
+export default function App() {
   const [ePasses, setEPasses] = useState([]);
   const [gPasses, setGPasses] = useState([]);
-  useEffect(() => {
-    axios.get("https://pass-backend.vercel.app/passes").then((res) => {
-      setEPasses(res.data.ePasses);
-      setGPasses(res.data.gPasses);
-    });
-  }, []);
-  return (
-    <>
-      <div className="pass-boxes ecap">
-        {ePasses.map((epass, index) => {
-          return <Pass pass={epass} key={index} />;
-        })}
-      </div>
-      {/* <p>Google Passwords</p> */}
-      <div className="pass-boxes google">
-        {gPasses.map((gpass, index) => {
-          return <Pass pass={gpass} key={index} />;
-        })}
-      </div>
-    </>
-  );
-}
+  let [showError, setShowError] = useState();
+  let [login, setLogin] = useState(false);
+  const navigate = useNavigate();
 
-function Pass({ pass }) {
-  const [showOldPasses, setShowOldPasses] = useState(false);
-  return (
-    <div className={"pass-box " + pass.type}>
-      <div className="field">
-        <span className="txt user">User:</span>
-        <span
-          className="value user"
-          onClick={() => navigator.clipboard.writeText(pass._id)}
-        >
-          {pass._id}
-        </span>
-      </div>
-      {pass.temp && (
-        <div className="field">
-          <span className="txt password">Pass:</span>
-          <span
-            className="value password"
-            onClick={() => navigator.clipboard.writeText(pass.password)}
-          >
-            {pass.temp}
-          </span>
-          <span className={"n2fs " + pass?.twoStepAuth}>2fs</span>
-        </div>
-      )}
+  function handleSubmit(e) {
+    // let url = "https://pass-backend.vercel.app/passes"
+    e.preventDefault();
+    let url = "http://192.168.0.169:3000/passes";
+    axios
+      .post(url, {
+        pass: e.target.pass.value,
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.error) {
+          setShowError(true);
+          setLogin(false);
+        } else {
+          setLogin(true);
+          navigate("/passes");
+          setEPasses(res.data.ePasses);
+          setGPasses(res.data.gPasses);
+        }
+      });
+  }
 
-      {pass.password && (
-        <div className="field">
-          <span className="txt password">Pass:</span>
-          <span
-            className="value password"
-            onClick={() => navigator.clipboard.writeText(pass.password)}
-          >
-            {pass.password}
-          </span>
-          {!pass.temp && (
-            <span className={"n2fs " + pass?.twoStepAuth}>2fs</span>
-          )}
-        </div>
-      )}
-      {pass.oldPasswords.length > 0 && (
-        <>
-          <div
-            className="toggle-old-passes"
-            onClick={() => setShowOldPasses((prv) => !prv)}
-          >
-            <p>Old Passwords</p>
-            {!showOldPasses ? <FaChevronDown /> : <FaChevronUp />}
-          </div>
-          <AnimatePresence>
-            {showOldPasses && (
-              <motion.div
-                className="old-passes"
-                initial={{ height: 0, overflow: "hidden" }}
-                animate={{ height: "auto" }}
-                exit={{ height: 0 }}
-                transition={{ duration: 0.25 }}
-              >
-                {pass.oldPasswords.map((oldp, ind) => (
-                  <motion.div
-                    className="oldpass"
-                    key={ind}
-                    onClick={() => navigator.clipboard.writeText(oldp)}
-                  >
-                    {oldp}
-                  </motion.div>
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </>
-      )}
+  useEffect((e) => {}, []);
+  return (
+    <div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Lock
+              handleSubmit={handleSubmit}
+              showError={showError}
+              login={login}
+            />
+          }
+        />
+        <Route
+          path="/passes"
+          element={<Passes ePasses={ePasses} gPasses={gPasses} login={login} />}
+        />
+      </Routes>
     </div>
   );
 }
-
-export default App;
