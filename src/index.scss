@@ -1,0 +1,111 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  color: white;
+  font-family: sans-serif;
+}
+
+.pass-boxes {
+  padding: 20px;
+}
+.pass-box {
+  background-color: rgb(38, 38, 38);
+  margin-bottom: 8px;
+  padding: 16px 18px;
+  border-radius: 6px;
+  -webkit-user-select: none;
+  user-select: none;
+
+  .field {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    &:not(:last-child) {
+      margin-bottom: 8px;
+    }
+
+    gap: 12px;
+    .txt {
+      color: rgb(186, 186, 186);
+    }
+    .value {
+      background-color: rgb(67, 67, 67);
+      border-radius: 6px;
+      padding: 4px 8px;
+    }
+    .password.value {
+      margin-left: -2px;
+    }
+  }
+
+  .toggle-old-passes {
+    display: flex;
+    gap: 25px;
+    color: rgb(212, 212, 212);
+    font-size: 14px;
+    margin-top: 16px;
+  }
+
+  .old-passes {
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+    overflow: hidden;
+    // align-items: start;
+    gap: 8px;
+    .heading {
+      font-weight: 800;
+      margin-bottom: 8px;
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+
+      .down-arrow {
+        margin-left: 10px;
+      }
+    }
+    .oldpass {
+      background-color: rgb(64, 64, 64);
+      padding: 6px 8px;
+      display: inline-block;
+      border-radius: 6px;
+    }
+  }
+}
+
+.ecap {
+  // .student.pass-box {
+  //   background-color: rgb(54, 31, 31);
+
+  //   .value,
+  //   .oldpass {
+  //     background-color: rgb(89, 54, 54);
+  //   }
+  // }
+  .teacher.pass-box {
+    background-color: rgb(41, 23, 40);
+
+    .value,
+    .oldpass {
+      background-color: rgb(66, 40, 64);
+    }
+  }
+}
+
+.google .pass-box {
+  background-color: rgb(22, 27, 35);
+
+  .value,
+  .oldpass {
+    background-color: rgb(41, 52, 69);
+  }
+}
+
+.heading {
+  color: white;
+}
