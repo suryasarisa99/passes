@@ -47,7 +47,9 @@ function Pass({ pass }) {
           >
             {pass.temp}
           </span>
-          <span className={"n2fs " + pass?.twoStepAuth}>2fs</span>
+          {pass.twoStepAuth != undefined && (
+            <span className={"n2fs " + pass?.twoStepAuth}>2fa</span>
+          )}
         </div>
       )}
 
@@ -60,8 +62,8 @@ function Pass({ pass }) {
           >
             {pass.password}
           </span>
-          {!pass.temp && (
-            <span className={"n2fs " + pass?.twoStepAuth}>2fs</span>
+          {!pass.temp && pass.twoStepAuth != undefined && (
+            <span className={"n2fs " + pass?.twoStepAuth}>2fa</span>
           )}
         </div>
       )}
