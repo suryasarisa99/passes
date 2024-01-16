@@ -15,8 +15,8 @@ export default function App() {
     // navigate("/unlock");
     let permanent = JSON.parse(localStorage.getItem("permanent"));
     if (permanent) {
-      // let url = "https://pass-backend.vercel.app/passes";
-      let url = "http://192.168.0.169:3000/passes";
+      let url = "https://pass-backend.vercel.app/passes";
+      // let url = "http://192.168.0.169:3000/passes";
       axios
         .post(url, { pass: "", password: "" }, { withCredentials: true })
         .then((res) => {
@@ -38,8 +38,8 @@ export default function App() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // let url = "https://pass-backend.vercel.app/passes";
-    let url = "http://192.168.0.169:3000/passes";
+    let url = "https://pass-backend.vercel.app/passes";
+    // let url = "http://192.168.0.169:3000/passes";
     axios
       .post(
         url,
