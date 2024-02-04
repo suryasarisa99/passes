@@ -10,13 +10,12 @@ export default function App() {
   let [showError, setShowError] = useState();
   let [login, setLogin] = useState(false);
   const navigate = useNavigate();
-
+  const url = "https://99-passes-b.vercel.app/ecap/auth";
   useEffect(() => {
     // navigate("/unlock");
     let permanent = JSON.parse(localStorage.getItem("permanent"));
+    console.log("perm", permanent);
     if (permanent) {
-      let url = "https://pass-backend.vercel.app/passes";
-      // let url = "http://192.168.0.169:3000/passes";
       axios
         .post(url, { pass: "", password: "" }, { withCredentials: true })
         .then((res) => {
@@ -38,8 +37,6 @@ export default function App() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    let url = "https://pass-backend.vercel.app/passes";
-    // let url = "http://192.168.0.169:3000/passes";
     axios
       .post(
         url,
