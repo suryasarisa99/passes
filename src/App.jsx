@@ -10,7 +10,7 @@ export default function App() {
   let [showError, setShowError] = useState();
   let [login, setLogin] = useState(false);
   const navigate = useNavigate();
-  const url = "https://99-passes-b.vercel.app/ecap/auth";
+  const url = "https://99-passes-b.vercel.app/auth";
   useEffect(() => {
     // navigate("/unlock");
     let permanent = JSON.parse(localStorage.getItem("permanent"));
