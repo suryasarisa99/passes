@@ -12,27 +12,26 @@ export default function App() {
   const navigate = useNavigate();
   const url = "https://99-passes-b.vercel.app/auth";
   useEffect(() => {
-    // navigate("/unlock");
-    let permanent = JSON.parse(localStorage.getItem("permanent"));
-    console.log("perm", permanent);
-    if (permanent) {
-      axios
-        .post(url, { pass: "", password: "" }, { withCredentials: true })
-        .then((res) => {
-          console.log(res.data);
-          if (res.data?.permanent != undefined) {
-            localStorage.setItem("permanent", res.data.permanent);
-          }
-          if (res.data.error) {
-            setShowError(true);
-            setLogin(false);
-          } else {
-            setLogin(true);
-            setEPasses(res.data.ePasses);
-            setGPasses(res.data.gPasses);
-          }
-        });
-    }
+    // let permanent = JSON.parse(localStorage.getItem("permanent"));
+    // console.log("perm", permanent);
+    // if (permanent) {
+    //   axios
+    //     .post(url, { pass: "", password: "" }, { withCredentials: true })
+    //     .then((res) => {
+    //       console.log(res.data);
+    //       if (res.data?.permanent != undefined) {
+    //         localStorage.setItem("permanent", res.data.permanent);
+    //       }
+    //       if (res.data.error) {
+    //         setShowError(true);
+    //         setLogin(false);
+    //       } else {
+    //         setLogin(true);
+    //         setEPasses(res.data.ePasses);
+    //         setGPasses(res.data.gPasses);
+    //       }
+    //     });
+    // }
   }, []);
 
   function handleSubmit(e) {
