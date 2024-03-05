@@ -10,29 +10,30 @@ export default function App() {
   let [showError, setShowError] = useState();
   let [login, setLogin] = useState(false);
   const navigate = useNavigate();
-  const url = "https://99-passes-b.vercel.app/auth";
-  // const url = "http://192.168.0.169:3000/auth";
+  // const url = "https://99-passes-b.vercel.app/auth";
+  const url = "http://192.168.0.169:3000/auth";
   useEffect(() => {
-    // let permanent = JSON.parse(localStorage.getItem("permanent"));
-    // console.log("perm", permanent);
-    // if (permanent) {
-    //   axios
-    //     .post(url, { pass: "", password: "" }, { withCredentials: true })
-    //     .then((res) => {
-    //       console.log(res.data);
-    //       if (res.data?.permanent != undefined) {
-    //         localStorage.setItem("permanent", res.data.permanent);
-    //       }
-    //       if (res.data.error) {
-    //         setShowError(true);
-    //         setLogin(false);
-    //       } else {
-    //         setLogin(true);
-    //         setEPasses(res.data.ePasses);
-    //         setGPasses(res.data.gPasses);
-    //       }
-    //     });
-    // }
+    let permanent = JSON.parse(localStorage.getItem("permanent"));
+    console.log("perm", permanent);
+    if (permanent) {
+      axios
+        .post(url, { pass: "", password: "" }, { withCredentials: true })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data?.permanent != undefined) {
+            localStorage.setItem("permanent", res.data.permanent);
+          }
+          if (res.data.error) {
+            setShowError(true);
+            setLogin(false);
+            localStorage.removeItem("permanent");
+          } else {
+            setLogin(true);
+            setEPasses(res.data.ePasses);
+            setGPasses(res.data.gPasses);
+          }
+        });
+    }
   }, []);
 
   function handleSubmit(e) {
@@ -54,6 +55,7 @@ export default function App() {
         if (res.data.error) {
           setShowError(true);
           setLogin(false);
+          localStorage.removeItem("permanent");
         } else {
           setLogin(true);
           setEPasses(res.data.ePasses);
