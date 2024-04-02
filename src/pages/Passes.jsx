@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 function Passes({ gPasses, ePasses, login }) {
   const navigate = useNavigate();
+
   useEffect(() => {
     // if (!login) navigate("/unlock");
   }, []);
@@ -34,16 +35,31 @@ function Passes({ gPasses, ePasses, login }) {
 
 function Pass({ pass }) {
   const [showOldPasses, setShowOldPasses] = useState(false);
+  const url = "https://99-passes-b.vercel.app/auth";
+  // const url = "http://192.168.0.169:3000/auth";
+  // const url = "http://localhost:3000/auth";
+  const [img, setImg] = useState("");
+
+  useEffect(() => {
+    if (pass.img) {
+      axios
+        .post(url + "/img", { img: pass.img }, { responseType: "blob" })
+        .then((res) => {
+          const url = window.URL.createObjectURL(new Blob([res.data]));
+          setImg(url);
+        });
+    }
+  }, []);
   return (
     <div className={"pass-box " + pass.type}>
       <div className="body">
         <div>
           {pass.name && (
-            <div className="field">
+            <div className="field name">
               <span className="txt user">Name: </span>
               <span
                 className="value user"
-                onClick={() => navigator.clipboard.writeText(pass._id)}
+                onClick={() => navigator.clipboard.writeText(pass.name)}
               >
                 {pass.name}
               </span>
@@ -88,7 +104,7 @@ function Pass({ pass }) {
             </div>
           )}
         </div>
-        {pass.img && <img src={pass.img} />}
+        {img && <img src={img} />}
       </div>
       {pass.oldPasswords.length > 0 && (
         <>

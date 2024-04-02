@@ -13,6 +13,7 @@ export default function App() {
   const navigate = useNavigate();
   const url = "https://99-passes-b.vercel.app/auth";
   // const url = "http://192.168.0.169:3000/auth";
+  // const url = "http://localhost:3000/auth";
   useEffect(() => {
     console.log(url);
     let permanent = JSON.parse(localStorage.getItem("permanent"));
@@ -54,6 +55,7 @@ export default function App() {
         }
       )
       .then((res) => {
+        console.log(res.data);
         if (res.data?.permanent != undefined) {
           localStorage.setItem("permanent", res.data.permanent);
         }
