@@ -11,9 +11,16 @@ function Passes({ gPasses, ePasses, login }) {
   return (
     <>
       <div className="pass-boxes ecap">
-        {ePasses.map((epass, index) => {
-          return <Pass pass={epass} key={index} />;
-        })}
+        {ePasses
+          .filter((p) => p.type === "teacher")
+          .map((epass, index) => {
+            return <Pass pass={epass} key={epass._id} />;
+          })}
+        {ePasses
+          .filter((p) => p.type === "student")
+          .map((epass, index) => {
+            return <Pass pass={epass} key={epass._id} />;
+          })}
       </div>
       {/* <p>Google Passwords</p> */}
       <div className="pass-boxes google">
@@ -29,44 +36,60 @@ function Pass({ pass }) {
   const [showOldPasses, setShowOldPasses] = useState(false);
   return (
     <div className={"pass-box " + pass.type}>
-      <div className="field">
-        <span className="txt user">User:</span>
-        <span
-          className="value user"
-          onClick={() => navigator.clipboard.writeText(pass._id)}
-        >
-          {pass._id}
-        </span>
-      </div>
-      {pass.temp && (
-        <div className="field">
-          <span className="txt password">Pass:</span>
-          <span
-            className="value password"
-            onClick={() => navigator.clipboard.writeText(pass.password)}
-          >
-            {pass.temp}
-          </span>
-          {pass.twoStepAuth != undefined && (
-            <span className={"n2fs " + pass?.twoStepAuth}>2fa</span>
+      <div className="body">
+        <div>
+          {pass.name && (
+            <div className="field">
+              <span className="txt user">Name: </span>
+              <span
+                className="value user"
+                onClick={() => navigator.clipboard.writeText(pass._id)}
+              >
+                {pass.name}
+              </span>
+            </div>
           )}
-        </div>
-      )}
+          <div className="field">
+            <span className="txt user">User:</span>
+            <span
+              className="value user"
+              onClick={() => navigator.clipboard.writeText(pass._id)}
+            >
+              {pass._id}
+            </span>
+          </div>
+          {pass.temp && (
+            <div className="field">
+              <span className="txt password">Pass:</span>
+              <span
+                className="value password"
+                onClick={() => navigator.clipboard.writeText(pass.password)}
+              >
+                {pass.temp}
+              </span>
+              {pass.twoStepAuth != undefined && (
+                <span className={"n2fs " + pass?.twoStepAuth}>2fa</span>
+              )}
+            </div>
+          )}
 
-      {pass.password && (
-        <div className="field">
-          <span className="txt password">Pass:</span>
-          <span
-            className="value password"
-            onClick={() => navigator.clipboard.writeText(pass.password)}
-          >
-            {pass.password}
-          </span>
-          {!pass.temp && pass.twoStepAuth != undefined && (
-            <span className={"n2fs " + pass?.twoStepAuth}>2fa</span>
+          {pass.password && (
+            <div className="field">
+              <span className="txt password">Pass:</span>
+              <span
+                className="value password"
+                onClick={() => navigator.clipboard.writeText(pass.password)}
+              >
+                {pass.password}
+              </span>
+              {!pass.temp && pass.twoStepAuth != undefined && (
+                <span className={"n2fs " + pass?.twoStepAuth}>2fa</span>
+              )}
+            </div>
           )}
         </div>
-      )}
+        {pass.img && <img src={pass.img} />}
+      </div>
       {pass.oldPasswords.length > 0 && (
         <>
           <div

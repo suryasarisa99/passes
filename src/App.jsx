@@ -9,11 +9,15 @@ export default function App() {
   const [gPasses, setGPasses] = useState([]);
   let [showError, setShowError] = useState();
   let [login, setLogin] = useState(false);
+  let [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  // const url = "https://99-passes-b.vercel.app/auth";
-  const url = "http://192.168.0.169:3000/auth";
+  const url = "https://99-passes-b.vercel.app/auth";
+  // const url = "http://192.168.0.169:3000/auth";
   useEffect(() => {
+    console.log(url);
     let permanent = JSON.parse(localStorage.getItem("permanent"));
+    setIsLoading(permanent);
+
     console.log("perm", permanent);
     if (permanent) {
       axios
@@ -32,6 +36,7 @@ export default function App() {
             setEPasses(res.data.ePasses);
             setGPasses(res.data.gPasses);
           }
+          setIsLoading(false);
         });
     }
   }, []);
@@ -61,28 +66,27 @@ export default function App() {
           setEPasses(res.data.ePasses);
           setGPasses(res.data.gPasses);
         }
+        setIsLoading(false);
       });
+  }
+
+  if (isLoading) {
+    return (
+      <div className="loader-screen">
+        <span className="loader"></span>
+      </div>
+    );
+  }
+
+  if (!login) {
+    return (
+      <Lock handleSubmit={handleSubmit} showError={showError} login={login} />
+    );
   }
 
   return (
     <div>
-      {login ? (
-        <Passes ePasses={ePasses} gPasses={gPasses} login={login} />
-      ) : (
-        <Lock handleSubmit={handleSubmit} showError={showError} login={login} />
-      )}
-      {/* <Routes>
-        <Route
-          path="/unlock"
-          element={
-            
-          }
-        />
-        <Route
-          path="/"
-          element={}
-        />
-      </Routes> */}
+      <Passes ePasses={ePasses} gPasses={gPasses} login={login} />
     </div>
   );
 }
